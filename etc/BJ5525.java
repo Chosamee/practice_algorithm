@@ -41,7 +41,6 @@ public class BJ5525 {
             }
             if (now == next)
                 next++;
-            // System.out.printf("%d %d\n", now, next);
             if (next - now >= 2 * N + 1)
                 cnt += ((next - now) - 2 * N - 1) / 2 + 1;
             now = next;
