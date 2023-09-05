@@ -43,17 +43,16 @@ class BJ1713_whyIncorrect {
         for (int i = 0; i < cnt; i++) {
             s = choo[i];
             students[s]++;
-            heap.add(new int[] { 0, 0 });
-            heap.poll();
-            if (!isThere[s]) {
-                if (heap.size() == N) {
-                    del = heap.poll()[0];
-                    isThere[del] = false;
-                    students[del] = 0;
-                }
-                heap.add(new int[] { s, i });
-                isThere[s] = true;
+
+            if (!isThere[s] && heap.size() == N) {
+                del = heap.poll()[0];
+                isThere[del] = false;
+                students[del] = 0;
             }
+            final int ss = s;
+            heap.removeIf(node -> (node[0] == ss));
+            heap.add(new int[] { s, i });
+            isThere[s] = true;
         }
 
         PriorityQueue<int[]> heapF = new PriorityQueue<>((s1, s2) -> {

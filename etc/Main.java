@@ -1,22 +1,19 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int x, y;
-        x = sc.nextInt();
-        y = sc.nextInt();
-        if (x > 0) {
-            if (y > 0)
-                System.out.println(1);
-            else
-                System.out.println(4);
-        } else {
-            if (y > 0)
-                System.out.println(2);
-            else
-                System.out.println(3);
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        boolean[] arr = new boolean[31];
+
+        for (int i = 0; i < 28; i++) {
+            arr[Integer.parseInt(br.readLine())] = true;
         }
-        sc.close();
+        for (int i = 1; i < 31; i++) {
+            if (!arr[i])
+                sb.append(i).append('\n');
+        }
+        System.out.println(sb);
     }
 }
