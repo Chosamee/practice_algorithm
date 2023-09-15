@@ -12,6 +12,7 @@ public class BJ2688 {
         for (int i = 0; i < 74; i++) {
             comb[i][i] = 1;
             comb[i][0] = 1;
+            System.out.println();
         }
 
         for (int i = 1; i < 74; i++) {

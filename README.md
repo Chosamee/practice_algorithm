@@ -1,7 +1,10 @@
 # HW
 
+## etc
 
-## Algorithm Yeah
+Solve BOJ problems personal
+</br>
 
-### ah.
+## SSAFY
 
+SSAFY assignments
