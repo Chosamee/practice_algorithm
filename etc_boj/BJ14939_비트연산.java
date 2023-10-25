@@ -1,8 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 
-public class BJ14939_비트연산_아직 {
+public class BJ14939_비트연산 {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     static int R, C, max;
@@ -21,7 +20,7 @@ public class BJ14939_비트연산_아직 {
             s = br.readLine();
             for (int j = 0; j < C; j++) {
                 if (s.charAt(j) == 'O') {
-                    temp |= 1 << j;
+                    temp |= 1 << (C - j - 1);
                 }
             }
             map[i] = temp;
@@ -32,11 +31,11 @@ public class BJ14939_비트연산_아직 {
         int pre, now = 0, next, cnt = 0;
         now = first;
         next = map[0];
-        for (int i = 1; i < R; i++) {
+        for (int i = 1; i <= R; i++) {
             pre = now;
             now = next;
             next = map[i];
-            for (int j = 0; j < C; j++) {
+            for (int j = C - 1; j >= 0; j--) {
                 if (((1 << j) & pre) != 0) {
                     now ^= j == 0 ? 3 : 7 << (j - 1);
                     next ^= 1 << j;
@@ -44,7 +43,7 @@ public class BJ14939_비트연산_아직 {
                 }
             }
         }
-        return (now & (1 << C - 1)) == 0 ? cnt : max;
+        return (now & ((1 << C) - 1)) == 0 ? cnt : max;
     }
 
     public static void main(String[] args) throws Exception {
@@ -58,6 +57,5 @@ public class BJ14939_비트연산_아직 {
         }
 
         System.out.println(min == max ? -1 : min);
-        System.out.println(Arrays.toString(map));
     }
 }
