@@ -1,38 +1,46 @@
 import java.util.*;
 
 class Solution {
-    static int max = 0;
-    static ArrayList<ArrayList<Integer>> relation = new ArrayList<ArrayList<Integer>>();
-    static int[] infos;
+    static int maxSheep = 0;
+    static List<List<Integer>> relation;
+    static int[] info;
 
     public int solution(int[] info, int[][] edges) {
+        Solution.info = info;
+        relation = new ArrayList<>();
+
         for (int i = 0; i < info.length; i++) {
-            relation.add(new ArrayList<Integer>());
+            relation.add(new ArrayList<>());
         }
-        int answer = 0;
-        infos = info;
-        for (int[] rel : edges) {
-            relation.get(rel[0]).add(rel[1]);
+
+        for (int[] edge : edges) {
+            relation.get(edge[0]).add(edge[1]);
         }
-        dfs(0, 0, 0);
-        return max;
+        boolean[] visited = new boolean[info.length];
+        dfs(0, 0, 0, visited.clone(), new HashSet<>());
+
+        return maxSheep;
     }
 
-    public Boolean dfs(int n, int sheep, int wolf) {
-        int nS = infos[n] == 0 ? sheep + 1 : sheep;
-        int nW = infos[n] == 1 ? wolf + 1 : wolf;
-        max = Math.max(max, nS);
-        if (nS <= nW) {
-            return false;
-        }
-        for (int child : relation.get(n)) {
-            if (dfs(child, nS, nW)) {
-                for (int cc : relation.get(child)) {
-                    dfs(child, infos[n] == 0 ? nS + 1 : nS, infos[n] == 1 ? nW + 1 : nW);
-                }
+    public void dfs(int now, int sheep, int wolf, boolean[] visited, Set<Integer> available) {
+        if (info[now] == 0)
+            sheep++;
+        else
+            wolf++;
+
+        if (wolf >= sheep)
+            return;
+        if (sheep > maxSheep)
+            maxSheep = sheep;
+
+        visited[now] = true;
+        available.remove(now);
+        available.addAll(relation.get(now));
+
+        for (int next : available) {
+            if (!visited[next]) {
+                dfs(next, sheep, wolf, visited.clone(), new HashSet<>(available));
             }
         }
-        return true;
     }
-
 }
