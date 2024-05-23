@@ -79,7 +79,8 @@ public class Main {
 				}
 			}
 			search();
-			if(nR == N-1 && nC == N-1 && !visited[nR][nC]) cnt++;
+			if (nR == N - 1 && nC == N - 1 && !visited[nR][nC])
+				cnt++;
 		}
 		return cnt;
 	}
