@@ -42,31 +42,48 @@ public class BJ1858 {
         }
     }
 
-    public static int solution(Xy[] nodes) {
+    public static int[] solution(Xy[] nodes) {
         // System.out.println(Arrays.toString(nodes));
 
         int max = -1;
-        int maxIdx = 0;
+        int A = 0;
+        int B = 0;
         for (int i = 0; i < nodes.length - 1; i++) {
             int incline = Math.abs((nodes[i + 1].y - nodes[i].y) / (nodes[i + 1].x - nodes[i].x));
-            if (incline == max && (nodes[i].n < nodes[maxIdx].n || nodes[i + 1].n < nodes[maxIdx].n)) {
-                maxIdx = i;
+            if (incline == max) {
+                if ((nodes[i].n < nodes[A].n || nodes[i + 1].n < nodes[A].n))
+                    if (nodes[i].n < nodes[i + 1].n)
+                        A = i;
+                    else
+                        A = i + 1;
+                if ((nodes[i].n < nodes[B].n || nodes[i + 1].n < nodes[B].n))
+                    if (nodes[i].n < nodes[i + 1].n && A != i)
+                        B = i;
+                    else if (A != i + 1)
+                        B = i + 1;
             } else if (incline > max) {
                 max = incline;
-                maxIdx = i;
+                if (nodes[i].n < nodes[i + 1].n) {
+                    A = i;
+                    B = i + 1;
+                } else {
+                    A = i + 1;
+                    B = i;
+                }
             }
         }
-        return maxIdx;
+        return new int[] { A, B };
     }
 
     public static void main(String[] args) throws Exception {
         init();
         Arrays.sort(nodes);
-        int idx = solution(nodes);
-        if (nodes[idx].n < nodes[idx + 1].n)
-            System.out.printf("%d %d", nodes[idx].n, nodes[idx + 1].n);
+        int[] idx = solution(nodes);
+        // System.out.println(Arrays.toString(idx));
+        if (nodes[idx[0]].n < nodes[idx[1]].n)
+            System.out.printf("%d %d", nodes[idx[0]].n, nodes[idx[1]].n);
         else
-            System.out.printf("%d %d", nodes[idx + 1].n, nodes[idx].n);
+            System.out.printf("%d %d", nodes[idx[1]].n, nodes[idx[0]].n);
     }
 
 }
