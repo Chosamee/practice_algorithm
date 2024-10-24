@@ -45,11 +45,11 @@ public class BJ1858 {
     public static int[] solution(Xy[] nodes) {
         // System.out.println(Arrays.toString(nodes));
 
-        int max = -1;
+        double max = -1;
         int A = 0;
         int B = 0;
         for (int i = 0; i < nodes.length - 1; i++) {
-            int incline = Math.abs((nodes[i + 1].y - nodes[i].y) / (nodes[i + 1].x - nodes[i].x));
+            double incline = Math.abs((nodes[i + 1].y - nodes[i].y) / (nodes[i + 1].x - nodes[i].x));
             if (incline == max) {
                 if ((nodes[i].n < nodes[A].n || nodes[i + 1].n < nodes[A].n))
                     if (nodes[i].n < nodes[i + 1].n)

@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-class Node implements Comparable<Node> {
-    int to;
-    int weight;
-
-    public Node(int to, int weight) {
-        super();
-        this.to = to;
-        this.weight = weight;
-    }
-
-    @Override
-    public int compareTo(Node o) {
-        return this.weight - o.weight;
-    }
-}
-
 public class BJ1197 {
+    static class Node implements Comparable<Node> {
+        int to;
+        int weight;
+
+        public Node(int to, int weight) {
+            super();
+            this.to = to;
+            this.weight = weight;
+        }
+
+        @Override
+        public int compareTo(Node o) {
+            return this.weight - o.weight;
+        }
+    }
+
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static StringBuilder sb = new StringBuilder();
     static StringTokenizer st;
